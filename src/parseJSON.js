@@ -3,5 +3,33 @@
 
 // but you're not, so you'll write it from scratch:
 var parseJSON = function(json) {
-  // your code goes here
+
+  if (json === undefined) {
+    return;
+  }
+  //starting our function
+  var result;
+  
+  //check if [ {
+  if (json[0] === '[') {
+    result = [];
+  } else if (json[0] === '{') {
+    result = {};
+  }
+  debugger;
+  var count = 1;
+  for (var i = 1; i < json.length; i++) {
+    if (json[i] === '[') {
+      count += 1;
+    } else if (json[i] === ']') {
+      count -= 1;
+    }
+  
+    if (count === 0) {
+      result.push(parseJSON(json.slice(1, i)));
+    }
+  }
+
+  return result;
+  
 };
